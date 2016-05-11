@@ -30,4 +30,10 @@ class RizeIterationTest < Minitest::Test
     assert_equal 1, RZ.hd([1, 2, 3])
     assert_equal [1], RZ.hd([[1], 2, 3])
   end
+
+  def test_tl
+    assert_equal [], RZ.tl([])
+    assert_equal [2, 3], RZ.tl([1, 2, 3])
+    assert_equal [[2], 3], RZ.tl([1, [2], 3])
+  end
 end

@@ -44,13 +44,29 @@ module Rize
   #
   # @param arr [Array] The array from which we want the head.
   #
+  # @return elem The first element of the array.
   # @example Get the first element of an array.
-  #   Rize.hd [1,2,3]
+  #   Rize.hd [1, 2, 3]
   #   1
   # @example
   #   Rize.hd []
   #   nil
   def hd(arr)
     arr[0]
+  end
+
+  # Returns all but the first element of the array.
+  #
+  # @param arr [Array] The array from which we want the tail.
+  #
+  # @return tail [Array] An array containing all but the first element of the input.
+  # @example Get all but the first element of the array.
+  #   Rize.tl [1, 2, 3]
+  #   [2, 3]
+  # @example
+  #   Rize.hd []
+  #   []
+  def tl(arr)
+    arr.drop(1)
   end
 end
