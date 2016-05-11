@@ -24,4 +24,10 @@ class RizeIterationTest < Minitest::Test
     val = RZ.hvalmap(hsh, &:to_s)
     assert_equal val, { a: "1", b: "2" }
   end
+
+  def test_hd
+    assert_nil RZ.hd([])
+    assert_equal 1, RZ.hd([1, 2, 3])
+    assert_equal [1], RZ.hd([[1], 2, 3])
+  end
 end

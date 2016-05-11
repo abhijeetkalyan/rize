@@ -39,4 +39,18 @@ module Rize
   def hvalmap(hsh)
     Hash[hsh.map { |k, v| [k, yield(v)] }]
   end
+
+  # Returns the first element of an array, or nil if the array is empty.
+  #
+  # @param arr [Array] The array from which we want the head.
+  #
+  # @example Get the first element of an array.
+  #   Rize.hd [1,2,3]
+  #   1
+  # @example
+  #   Rize.hd []
+  #   nil
+  def hd(arr)
+    arr[0]
+  end
 end
