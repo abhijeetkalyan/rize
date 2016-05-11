@@ -64,7 +64,7 @@ module Rize
   #   Rize.tl [1, 2, 3]
   #   [2, 3]
   # @example
-  #   Rize.hd []
+  #   Rize.tl []
   #   []
   def tl(arr)
     arr.drop(1)
