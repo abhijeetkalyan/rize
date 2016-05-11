@@ -17,7 +17,7 @@ module Rize
   # Map over the keys of a hash.
   #
   # @param hsh [Hash] The hash to be mapped over.
-  # @yield [key] A block acts upon the hash keys.
+  # @yield [key] A block that acts upon the hash keys.
   #
   # @return [Hash] Returns a new hash with updated keys, and unchanged values.
   # @example Map over a hash's keys.
@@ -25,5 +25,18 @@ module Rize
   #   { "a" => 1, "b" => 2 }
   def hkeymap(hsh)
     Hash[hsh.map { |k, v| [yield(k), v] }]
+  end
+
+  # Map over the values of a hash.
+  #
+  # @param hsh [Hash] The hash to be mapped over.
+  # @yield [value] A block that acts upon the hash values.
+  #
+  # @return [Hash] Returns a new hash with updated values, and unchanged keys.
+  # @example Map over a hash's values.
+  #   Rize.hvalmap({a: 1, b: 2}, &:to_s)
+  #   { a: "1", b: "2" }
+  def hvalmap(hsh)
+    Hash[hsh.map { |k, v| [k, yield(v)] }]
   end
 end

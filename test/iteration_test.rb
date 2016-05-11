@@ -17,4 +17,11 @@ class RizeIterationTest < Minitest::Test
     val = RZ.hkeymap(hsh, &:to_s)
     assert_equal val, { "a" => 1, "b" => 2 }
   end
+
+  def test_hvalmap
+    hsh = { a: 1, b: 2 }
+    assert_equal hsh, RZ.hvalmap(hsh) { |v| v }
+    val = RZ.hvalmap(hsh, &:to_s)
+    assert_equal val, { a: "1", b: "2" }
+  end
 end
