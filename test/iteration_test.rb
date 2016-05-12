@@ -45,5 +45,7 @@ class RizeIterationTest < Minitest::Test
     assert_raises(ArgumentError) do
       RZ.map_n([1, 2], [1, 2, 3]) { |*args| args.reduce(:+) }
     end
+    res3 = RZ.map_n([1, 2, 3], [4, 5, 6], [7, 8, 9]) { |*args| args }
+    assert_equal [[1, 4, 7], [2, 5, 8], [3, 6, 9]], res3
   end
 end
