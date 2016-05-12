@@ -70,15 +70,17 @@ module Rize
     arr.drop(1)
   end
 
+  # Map over multiple arrays at the same time.
+  #
   # The same as doing [block(a1, b1, c1), block(a2, b2, c2)]
-  #   for arrays [a1, b1, c1] and [a2, b2, c2].
+  # for arrays [a1, b1, c1] and [a2, b2, c2].
   #
   # Raises an ArgumentError if arrays are of unequal length.
   #
   # @param *arrs [Array] A variable-length number of arrays.
   # @yield [*args] A block that acts upon elements at a particular index in the array.
   #
-  # @return [Array] The result of calling block over the matching array elements.
+  # @return [Array] The result of calling the block over the matching array elements.
   # @example Sum all the elements at the same position across multiple arrays.
   #   Rize.map_n([1, 2, 3], [4, 5, 6], [7, 8, 9]) { |*args| args.reduce(:+) }
   #   [12, 15, 18]
