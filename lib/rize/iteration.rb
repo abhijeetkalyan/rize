@@ -30,7 +30,7 @@ module Rize
   # Map over the values of a hash.
   #
   # @param hsh [Hash] The hash to be mapped over.
-  # @yield [value] A block that acts upon the hash values.
+  # @yield [value] A block that acts upon the hash values
   #
   # @return [Hash] Returns a new hash with updated values, and unchanged keys.
   # @example Map over a hash's values.
@@ -68,5 +68,33 @@ module Rize
   #   []
   def tl(arr)
     arr.drop(1)
+  end
+
+  # The same as doing [block(a1, b1, c1), block(a2, b2, c2)]
+  #   for arrays [a1, b1, c1] and [a2, b2, c2].
+  #
+  # Raises an ArgumentError if arrays are of unequal length.
+  #
+  # @param *arrs [Array] A variable-length number of arrays.
+  # @yield [*args] A block that acts upon elements at a particular index in the array.
+  #
+  # @return [Array] The result of calling block over the matching array elements.
+  # @example Sum all the elements at the same position across multiple arrays.
+  #   Rize.map_n([1, 2, 3], [4, 5, 6], [7, 8, 9]) { |*args| args.reduce(:+) }
+  #   [12, 15, 18]
+  # @example Subtract the second array's element from the first, and multiply by the third.
+  #   Rize.map_n([1, 2, 3], [4, 5, 6], [7, 8, 9]) { |a, b, c| (a - b) * c }
+  #   [-21, -24, -27]
+  # @example Try with arrays of unequal length.
+  #   Rize.map_n([1, 2], [1, 2, 3]) { |*args| args.reduce(:+) }
+  #   ArgumentError: Expected all inputs to be of length 2
+  def map_n(*arrs)
+    expected_length = arrs[0].length
+    if arrs.any? { |arr| arr.length != expected_length }
+      raise ArgumentError, "Expected all inputs to be of length #{expected_length}"
+    end
+    hd(arrs).zip(*tl(arrs)).map do |elems|
+      yield(*elems)
+    end
   end
 end

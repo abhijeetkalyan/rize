@@ -36,4 +36,14 @@ class RizeIterationTest < Minitest::Test
     assert_equal [2, 3], RZ.tl([1, 2, 3])
     assert_equal [[2], 3], RZ.tl([1, [2], 3])
   end
+
+  def test_map_n
+    res = RZ.map_n([1, 2, 3], [4, 5, 6], [7, 8, 9]) { |*args| args.reduce(:+) }
+    assert_equal [12, 15, 18], res
+    res2 = RZ.map_n([1, 2, 3], [4, 5, 6], [7, 8, 9]) { |a, b, c| (a - b) * c }
+    assert_equal [-21, -24, -27], res2
+    assert_raises(ArgumentError) do
+      RZ.map_n([1, 2], [1, 2, 3]) { |*args| args.reduce(:+) }
+    end
+  end
 end
