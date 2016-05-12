@@ -44,7 +44,7 @@ module Rize
   #
   # @param arr [Array] The array from which we want the head.
   #
-  # @return elem The first element of the array.
+  # @return [Object] The first element of the array.
   # @example Get the first element of an array.
   #   Rize.hd [1, 2, 3]
   #   1
@@ -59,7 +59,7 @@ module Rize
   #
   # @param arr [Array] The array from which we want the tail.
   #
-  # @return tail [Array] An array containing all but the first element of the input.
+  # @return [Array] An array containing all but the first element of the input.
   # @example Get all but the first element of the array.
   #   Rize.tl [1, 2, 3]
   #   [2, 3]
