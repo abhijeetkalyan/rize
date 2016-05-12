@@ -48,4 +48,13 @@ class RizeIterationTest < Minitest::Test
     res3 = RZ.map_n([1, 2, 3], [4, 5, 6], [7, 8, 9]) { |*args| args }
     assert_equal [[1, 4, 7], [2, 5, 8], [3, 6, 9]], res3
   end
+
+  def test_each_n
+    res = []
+    RZ.each_n([1, 2, 3], [4, 5, 6], [7, 8, 9]) { |a, b, c| res << a << b << c }
+    assert_equal [1, 4, 7, 2, 5, 8, 3, 6, 9], res
+    assert_raises(ArgumentError) do
+      RZ.each_n([1, 2, 3], [1, 2])
+    end
+  end
 end
