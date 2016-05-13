@@ -31,3 +31,6 @@ Style/UnneededPercentQ:
 
 Style/BracesAroundHashParameters:
   Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
