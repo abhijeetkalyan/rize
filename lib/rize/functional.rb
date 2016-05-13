@@ -4,8 +4,6 @@ module Rize
     # Returns a memoized version of a given proc, lambda, or method.
     #
     # @param func [Proc, Lambda, Method] The proc, lambda, or method to memoize.
-    # @param expected_call [Fixnum] The number of times to evaluate this function before returning
-    #   the memoized value. This value is optional.
     #
     # @return [Lambda] A lambda that is the memoized version of the passed in function.
     # @example Memoize an expensive function.
@@ -25,7 +23,7 @@ module Rize
     #   2
     #   memoized.call(2)
     #   2
-    def memoize(func, expected_call = 1)
+    def memoize(func)
       memo = {}
       call_count = Hash.new(0)
       lambda do |*args|
