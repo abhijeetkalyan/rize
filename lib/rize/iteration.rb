@@ -77,7 +77,7 @@ module Rize
   #
   # Raises an ArgumentError if arrays are of unequal length.
   #
-  # @param *args [Array] A variable-length number of arrays.
+  # @param args [Array] A variable-length number of arrays.
   # @yield [*args] A block that acts upon elements at a particular index in the array.
   #
   # @return [Array] The result of calling the block over the matching array elements.
@@ -90,12 +90,12 @@ module Rize
   # @example Try with arrays of unequal length.
   #   Rize.map_n([1, 2], [1, 2, 3]) { |*args| args.reduce(:+) }
   #   ArgumentError: Expected all inputs to be of length 2
-  def map_n(*arrs)
-    expected_length = arrs[0].length
-    if arrs.any? { |arr| arr.length != expected_length }
+  def map_n(*args)
+    expected_length = args[0].length
+    if args.any? { |arr| arr.length != expected_length }
       raise ArgumentError, "Expected all inputs to be of length #{expected_length}"
     end
-    hd(arrs).zip(*tl(arrs)).map do |elems|
+    hd(args).zip(*tl(args)).map do |elems|
       yield(*elems)
     end
   end
@@ -107,7 +107,7 @@ module Rize
   #
   # Raises an ArgumentError if arrays are of unequal length.
   #
-  # @param *args [Array] A variable-length number of arrays.
+  # @param args [Array] A variable-length number of arrays.
   # @yield [*args] A block that acts upon elements at a particular index in the array.
   #
   # @return [Array] The input arrays.
@@ -116,12 +116,12 @@ module Rize
   #   1 4 7
   #   2 5 8
   #   3 6 9
-  def each_n(*arrs)
-    expected_length = arrs[0].length
-    if arrs.any? { |arr| arr.length != expected_length }
+  def each_n(*args)
+    expected_length = args[0].length
+    if args.any? { |arr| arr.length != expected_length }
       raise ArgumentError, "Expected all inputs to be of length #{expected_length}"
     end
-    hd(arrs).zip(*tl(arrs)).each do |elems|
+    hd(args).zip(*tl(args)).each do |elems|
       yield(*elems)
     end
   end
