@@ -77,7 +77,7 @@ module Rize
   #
   # Raises an ArgumentError if arrays are of unequal length.
   #
-  # @param *arrs [Array] A variable-length number of arrays.
+  # @param *args [Array] A variable-length number of arrays.
   # @yield [*args] A block that acts upon elements at a particular index in the array.
   #
   # @return [Array] The result of calling the block over the matching array elements.
@@ -107,7 +107,7 @@ module Rize
   #
   # Raises an ArgumentError if arrays are of unequal length.
   #
-  # @param *arrs [Array] A variable-length number of arrays.
+  # @param *args [Array] A variable-length number of arrays.
   # @yield [*args] A block that acts upon elements at a particular index in the array.
   #
   # @return [Array] The input arrays.
