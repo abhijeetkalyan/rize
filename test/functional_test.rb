@@ -102,5 +102,5 @@ class RizeFunctionalTest < Minitest::Test
     odd = RZ.negate(even)
     assert odd.call(3)
     assert !odd.call(4)
-  end  
+  end
 end

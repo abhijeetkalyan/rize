@@ -35,3 +35,9 @@ Style/BracesAroundHashParameters:
 
 Metrics/MethodLength:
   Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Style/SymbolProc:
+  Enabled: false

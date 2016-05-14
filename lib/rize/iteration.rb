@@ -144,10 +144,10 @@ module Rize
   end
 
   # Repeat a block N times, and return an array of the results.
-  # 
+  #
   # @param count [Fixnum] The number of times to repeat a block.
   # @yield The block to be called.
-  # 
+  #
   # @return [Array] The result of running block, `count` times.
   # @example Mass-assign several variables to different random numbers.
   #   a, b, c = Rize.repeat { Random.new.rand(50) }
@@ -173,9 +173,9 @@ module Rize
 
   # Lazy version of repeat.
   # Repeat a block N times, and return a lazy enumerator which can be forced for results.
-  # 
+  #
   # @yield The block to be called.
-  # 
+  #
   # @return [Enumerator::Lazy] A lazy enumerator that can be evaluated for the desired number of results.
   # @example Mass-assign several variables to different random numbers.
   #   a, b, c = Rize.repeat { Random.new.rand(50) }.first(3)

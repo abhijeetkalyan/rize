@@ -54,9 +54,9 @@ module Rize
   # Returns a negated version of a proc, lambda, or method.
   # The input function should return a boolean.
   # @param func [Proc, Lambda, Method] A proc, lambda, or method to negate.
-  # 
+  #
   # @return [Lambda] A lambda that is the negation of func.
-  # 
+  #
   # @example Given a function that checks evenness, create a function that checks oddness.
   #   even = lambda { |x| x.even? }
   #   odd = Rize.negate(even)
