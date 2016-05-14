@@ -68,5 +68,12 @@ class RizeFunctionalTest < Minitest::Test
     composed = RZ.compose(f, g)
     # (1 + 2 + 3 + 4)^2
     assert_equal 100, composed.call([1, 2, 3, 4])
+
+    # Test with keyword arguments.
+    f = lambda { |c:, d:| c - d }
+    g = lambda { |a:, b:| { c: a, d: b } }
+    composed = RZ.compose(f, g)
+    # 3 - 2, in a pretty roundabout way.
+    assert_equal 1, composed.call(a: 3, b: 2)
   end
 end
