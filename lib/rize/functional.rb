@@ -34,13 +34,30 @@ module Rize
     end
   end
 
+  # Compose multiple procs, lambdas or methods.
+  #
+  # @param *funcs [Proc, Lambda, Method] A variable-length number of procs, lambdas or methods to compose.
+  #
+  # @return [Lambda] A lambda that is the composition of the inputs.
+  # compose(f, g, h).call(arg) is the same as f(g(h.call(arg)))
+  # @example Compose various mathematical operations together to compute (2(a + b))^2.
+  #   f = lambda { |x| x**2 }
+  #   g = lambda { |x| 2 * x }
+  #   h = lambda { |x, y| x + y }
+  #   composed = compose(f, g, h)
+  #   composed.call(2, 3)
+  #   100
+  def compose(*funcs)
+    -> (*args) { call_all(funcs, *args) }
+  end
+
   # Partially supply the arguments to a proc, lambda, or method.
   #
   # @param func [Proc, Lambda, Method] The proc, lambda, or method to partially supply arguments to.
-  # @param args [Array] A variable-length number of positional arguments.
+  # @param *args [Object] A variable-length number of positional arguments.
   # Use Rize::DC as a 'don't care' variable to signify that we'd like to supply this argument later.
   # This is useful, for example, if we have arguments 1 and 3, but are waiting on argument 2.
-  # @param kwargs [Hash] A variable-length number of keyword arguments.
+  # @param **kwargs [Object] A variable-length number of keyword arguments.
   #
   # @return [Lambda] A lambda that is the partially filled version of the input function.
   # @example Supply the second and third positional arguments, but not the first.
@@ -102,5 +119,15 @@ module Rize
   def merge_keyword(prefilled_kwargs, new_kwargs)
     return [] if prefilled_kwargs.empty? && new_kwargs.empty?
     [prefilled_kwargs.merge(new_kwargs)]
+  end
+
+  # Internal helper used by compose to actually call functions.
+  #
+  # @param funcs [Array] An array of procs, lambdas or methods.
+  # @param *args [Object] A variable-length number of arguments to call the actual functions with.
+  def call_all(funcs, *args)
+    return funcs[0].call(*args) if funcs.length == 1
+
+    funcs[0].call(call_all(funcs.drop(1), *args))
   end
 end

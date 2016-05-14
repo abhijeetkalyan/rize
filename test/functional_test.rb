@@ -53,4 +53,20 @@ class RizeFunctionalTest < Minitest::Test
     # 4**5 == 1024
     assert_equal(1024, partial_lambda.call(4, 6, e: 5))
   end
+
+  def test_compose
+    f = lambda { |x| x**2 }
+    g = lambda { |x| 2 * x }
+    h = lambda { |x, y| x + y }
+    composed = RZ.compose(f, g, h)
+    # (2(2+3))^2 = 100
+    assert_equal 100, composed.call(2, 3)
+
+    # Test with array arguments to ensure no screwups in the unpacking.
+    f = lambda { |x| x**2 }
+    g = lambda { |x| x.reduce(:+) }
+    composed = RZ.compose(f, g)
+    # (1 + 2 + 3 + 4)^2
+    assert_equal 100, composed.call([1, 2, 3, 4])
+  end
 end
