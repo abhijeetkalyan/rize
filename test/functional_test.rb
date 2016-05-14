@@ -76,4 +76,11 @@ class RizeFunctionalTest < Minitest::Test
     # 3 - 2, in a pretty roundabout way.
     assert_equal 1, composed.call(a: 3, b: 2)
   end
+
+  def test_negate
+    even = lambda { |x| x.even? }
+    odd = RZ.negate(even)
+    assert odd.call(3)
+    assert !odd.call(4)
+  end  
 end

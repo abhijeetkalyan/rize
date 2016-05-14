@@ -44,11 +44,24 @@ module Rize
   #   f = lambda { |x| x**2 }
   #   g = lambda { |x| 2 * x }
   #   h = lambda { |x, y| x + y }
-  #   composed = compose(f, g, h)
+  #   composed = Rize.compose(f, g, h)
   #   composed.call(2, 3)
   #   100
   def compose(*funcs)
     -> (*args) { call_all(funcs, *args) }
+  end
+
+  # Returns a negated version of a proc, lambda, or method.
+  # The input function should return a boolean.
+  # @param func [Proc, Lambda, Method] A proc, lambda, or method to negate.
+  # 
+  # @return [Lambda] A lambda that is the negation of func.
+  # 
+  # @example Given a function that checks evenness, create a function that checks oddness.
+  #   even = lambda { |x| x.even? }
+  #   odd = Rize.negate(even)
+  def negate(func)
+    -> (*args) { !func.call(*args) }
   end
 
   # Partially supply the arguments to a proc, lambda, or method.
