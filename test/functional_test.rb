@@ -25,6 +25,26 @@ class RizeFunctionalTest < Minitest::Test
 
     assert_equal 2, memoized_lambda.call(2)
     assert_equal 2, @side_effect
+
+    # Try with a new lambda, to ensure no conflicts with the cache.
+    @other_side_effect = 0
+    test_lambda2 = lambda do |val|
+      @other_side_effect += 1
+      val * 2
+    end
+    memoized_lambda2 = RZ.memoize(test_lambda2)
+
+    assert_equal 3, memoized_lambda.call(3)
+    assert_equal 3, @side_effect
+
+    assert_equal 6, memoized_lambda2.call(3)
+    assert_equal 1, @other_side_effect
+
+    assert_equal 3, memoized_lambda.call(3)
+    assert_equal 3, @side_effect
+
+    assert_equal 6, memoized_lambda2.call(3)
+    assert_equal 1, @other_side_effect
   end
 
   def test_partial
