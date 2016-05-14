@@ -125,4 +125,58 @@ module Rize
       yield(*elems)
     end
   end
+
+  # Repeat a block N times, and return an array of the results.
+  # 
+  # @param count [Fixnum] The number of times to repeat a block.
+  # @yield The block to be called.
+  # 
+  # @return [Array] The result of running block, `count` times.
+  # @example Mass-assign several variables to different random numbers.
+  #   a, b, c = Rize.repeat { Random.new.rand(50) }
+  #   a
+  #   24
+  #   b
+  #   10
+  #   c
+  #   18
+  # @example Initialize multiple FactoryGirl objects in one go.
+  #   u1, u2, u3 = Rize.repeat { FactoryGirl.create(:user) }
+  #   u1
+  #   <User Object 1>
+  #   u2
+  #   <User Object 2>
+  #   u3
+  #   <User Object 3>
+  def repeat(count)
+    result = []
+    count.times { result << yield }
+    result
+  end
+
+  # Lazy version of repeat.
+  # Repeat a block N times, and return a lazy enumerator which can be forced for results.
+  # 
+  # @yield The block to be called.
+  # 
+  # @return [Enumerator::Lazy] A lazy enumerator that can be evaluated for the desired number of results.
+  # @example Mass-assign several variables to different random numbers.
+  #   a, b, c = Rize.repeat { Random.new.rand(50) }.first(3)
+  #   a
+  #   24
+  #   b
+  #   10
+  #   c
+  #   18
+  # @example Initialize multiple FactoryGirl objects in one go.
+  #   u1, u2, u3 = Rize.repeat { FactoryGirl.create(:user) }.first(3)
+  #   u1
+  #   <User Object 1>
+  #   u2
+  #   <User Object 2>
+  #   u3
+  #   <User Object 3>
+  def lazy_repeat
+    (1..Float::INFINITY).lazy.map { yield }
+  end
 end

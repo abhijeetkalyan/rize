@@ -57,4 +57,32 @@ class RizeIterationTest < Minitest::Test
       RZ.each_n([1, 2, 3], [1, 2])
     end
   end
+
+  def test_repeat
+    a, b, c = RZ.repeat(3) { 3 }
+    [a, b, c].each { |var| assert_equal 3, var }
+    # Add a side-effect for a deterministic test.
+    @rand_counter = 0
+    d, e, f = RZ.repeat(3) do
+      Integer("#{Random.new.rand(50)}#{@rand_counter}")
+      @rand_counter += 1
+    end
+    assert((d != e) && (e != f) && (d != f))
+    [d, e, f].each { |var| assert (0..502).include?(var) }
+  end
+
+  # TODO: Pull out shared logic between this and test_repeat
+  def test_lazy_repeat
+    assert RZ.lazy_repeat { 1 }.is_a?(Enumerator::Lazy)
+    a, b, c = RZ.lazy_repeat { 3 }.first(3)
+    [a, b, c].each { |var| assert_equal 3, var }
+    # Add a side-effect for a deterministic test.
+    @rand_counter = 0
+    d, e, f = RZ.lazy_repeat do
+      Integer("#{Random.new.rand(50)}#{@rand_counter}")
+      @rand_counter += 1
+    end.first(3)
+    assert((d != e) && (e != f) && (d != f))
+    [d, e, f].each { |var| assert (0..502).include?(var) }
+  end
 end
