@@ -70,6 +70,23 @@ module Rize
     arr.drop(1)
   end
 
+  # Find how many times a block evaluates to a particular result in an array.
+  #
+  # @param arr [Array] The array over which we're counting frequencies.
+  # @yield [elem] A block whose results we use to calculate frequencies.
+  #
+  # @return [Hash] A hash containing the count of each of block's output values from the array.
+  # The keys are the various outputs, and the values are the number of times said outputs occurred.
+  # @example Count the elements in an array.
+  #   Rize.frequencies([1, 2, 3, 1]) { |el| el }
+  #   { 1 => 2, 2 => 1, 3 => 1 }
+  # @example Count the even numbers in an array.
+  #   Rize.frequencies([1, 2, 3, 1]) { |el| el.even? }
+  #   { true => 1, false => 3 }
+  def frequencies(arr)
+    hvalmap(arr.group_by { |el| yield(el) }, &:length)
+  end
+
   # Map over multiple arrays together.
   #
   # The same as doing [block(a1, b1, c1), block(a2, b2, c2)]

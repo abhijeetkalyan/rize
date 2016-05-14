@@ -58,6 +58,17 @@ class RizeIterationTest < Minitest::Test
     end
   end
 
+  def test_frequencies
+    assert_equal(
+      { 1 => 2, 2 => 1, 3 => 1 },
+      RZ.frequencies([1, 2, 3, 1]) { |i| i }
+    )
+    assert_equal(
+      { true => 1, false => 3 },
+      RZ.frequencies([1, 2, 3, 1]) { |i| i.even? }
+    )
+  end
+
   def test_repeat
     a, b, c = RZ.repeat(3) { 3 }
     [a, b, c].each { |var| assert_equal 3, var }
