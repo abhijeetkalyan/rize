@@ -79,7 +79,7 @@ class RizeIterationTest < Minitest::Test
       @rand_counter += 1
     end
     assert((d != e) && (e != f) && (d != f))
-    [d, e, f].each { |var| assert((0..502).include?(var)) }
+    [d, e, f].each { |var| assert((0..502).cover?(var)) }
   end
 
   # TODO: Pull out shared logic between this and test_repeat
@@ -94,6 +94,6 @@ class RizeIterationTest < Minitest::Test
       @rand_counter += 1
     end.first(3)
     assert((d != e) && (e != f) && (d != f))
-    [d, e, f].each { |var| assert((0..502).include?(var)) }
+    [d, e, f].each { |var| assert((0..502).cover?(var)) }
   end
 end
