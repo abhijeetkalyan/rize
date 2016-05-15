@@ -3,12 +3,9 @@
 require "bundler/setup"
 require "rize"
 
-# You can add fixtures and/or initialization code here to make experimenting
-# with your gem easier. You can also use a different console, if you like.
+require "pry"
+Pry.start
 
-# (If you use this, don't forget to add pry to your Gemfile!)
-# require "pry"
-# Pry.start
-
-require "irb"
-IRB.start
+# Uncomment the lines below to use irb instead of pry.
+# require "irb"
+# IRB.start
