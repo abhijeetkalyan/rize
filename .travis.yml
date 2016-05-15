@@ -7,3 +7,5 @@ install:
   gem install rubocop
 script:
   rubocop -D
+notifications:
+  email: false
