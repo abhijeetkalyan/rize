@@ -9,4 +9,10 @@ module Rize
   end
 
   DC = DontCare.new
+
+  # Error when the function from `after` hasn't been called enough times.
+  class TooFewCallsError < StandardError; end
+
+  # Error when the function from `before` has been called too many times.
+  class TooManyCallsError < StandardError; end
 end

@@ -64,6 +64,86 @@ module Rize
     -> (*args) { !func.call(*args) }
   end
 
+  # TODO: Pull out shared logic between at_least, at_most, and memoize
+
+  # Raises an error until after a function is called a certain number of times, following which the function is
+  # executed.
+  # Raises instead of returning nil to provide better transparency to callers.
+  #
+  # @param func [Proc, Lambda, or Method] A proc, lambda or method.
+  # @param allowed_call_count [Fixnum] The minimum number of times this function needs to be called to start executing.
+  # @raise TooFewCallsError [StandardError] Exception raised when the function hasn't been called enough times.
+  #
+  # @return [Lambda] A lambda that places the appropriate call restrictions on func.
+  #
+  # @example Execute a function only on the 3rd attempt.
+  #   succeed = lambda { |*args| "success!" }
+  #   persevere = Rize.at_least(succeed, 3)
+  #   3.times do
+  #     begin
+  #       persevere.call
+  #     rescue Rize::TooFewCallsError
+  #       puts "keep trying"
+  #     end
+  #   end
+  #   "keep trying"
+  #   "keep trying"
+  #   "success!"
+  def at_least(func, allowed_call_count)
+    call_count = 0
+    lambda do |*args|
+      call_count += 1
+      raise TooFewCallsError, "Minimum call count is #{allowed_call_count}." if call_count < allowed_call_count
+      func.call(*args)
+    end
+  end
+
+  # Executes a function upto a certain number of times, following which an error is raised.
+  # Raises instead of returning nil to provide better transparency to callers.
+  #
+  # @param func [Proc, Lambda, or Method] A proc, lambda or method.
+  # @param allowed_call_count [Fixnum] The maximum number of times the function can execute.
+  # @raise TooManyCallsError [StandardError] Exception raised when the function has been called too many times.
+  #
+  # @return [Lambda] A lambda that places the appropriate call restrictions on func.
+  #
+  # @example Execute a function 2 times, then fail on attempt 3 onwards.
+  #   are_we_there_yet = lambda { |*args| "Are we there yet?" }
+  #   but_are_we_really_there_yet = Rize.at_most(are_we_there_yet, 2)
+  #   2.times do
+  #     begin
+  #       but_are_we_really_there_yet.call
+  #     rescue Rize::TooManyCallsError
+  #       puts "That's it, I'm turning this car around"
+  #     end
+  #   end
+  #   "Are we there yet?"
+  #   "Are we there yet?"
+  #   "That's it, I'm turning this car around"
+  #
+  # @example Try connecting to a database 3 times. Give up on attempt 4.
+  #   MAX_RETRIES = 3
+  #   try_connect = Rize.at_most( lambda { |db| db.connect }, MAX_RETRIES )
+  #   loop do
+  #     begin
+  #       try_connect.call(db)
+  #     rescue TooManyCallsError
+  #       # If we've tried too many times, give up
+  #       break
+  #     rescue ConnectionError
+  #       # If we can't connect, try again
+  #       try_connect.call(db)
+  #     end
+  #   end
+  def at_most(func, allowed_call_count)
+    call_count = 0
+    lambda do |*args|
+      call_count += 1
+      raise TooManyCallsError, "Maximum call count is #{allowed_call_count}." if call_count > allowed_call_count
+      func.call(*args)
+    end
+  end
+
   # Partially supply the arguments to a proc, lambda, or method.
   #
   # @param func [Proc, Lambda, Method] The proc, lambda, or method to partially supply arguments to.

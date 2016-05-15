@@ -103,4 +103,61 @@ class RizeFunctionalTest < Minitest::Test
     assert odd.call(3)
     assert !odd.call(4)
   end
+
+  def test_at_most
+    # Try with multiple lambdas to ensure no conflicts in tracking call counts.
+    @lam1_call_count = 0
+    @lam2_call_count = 0
+    lam1 = RZ.at_most(lambda { @lam1_call_count += 1 }, 3)
+    lam2 = RZ.at_most(lambda { @lam2_call_count += 1 }, 5)
+    loop do
+      begin
+        lam1.call
+      rescue RZ::TooManyCallsError
+        break
+      end
+    end
+
+    loop do
+      begin
+        lam2.call
+      rescue RZ::TooManyCallsError
+        break
+      end
+    end
+
+    assert_equal 3, @lam1_call_count
+    assert_equal 5, @lam2_call_count
+  end
+
+  def test_at_least
+    # Try with multiple lambdas to ensure no conflicts in tracking call counts.
+    @lam1_call_count = 0
+    @lam2_call_count = 0
+    lam1 = RZ.at_least(lambda { @lam1_call_count += 1 }, 3)
+    lam2 = RZ.at_least(lambda { @lam2_call_count += 1 }, 5)
+    loop do
+      begin
+        lam1.call
+        # If a successful attempt, break
+        break
+      rescue RZ::TooFewCallsError
+        # Keep trying if too few calls
+        next
+      end
+    end
+
+    loop do
+      begin
+        lam2.call
+        break
+      rescue RZ::TooFewCallsError
+        next
+      end
+    end
+
+    # Both functions should have been called exactly once before we broke out of the loop.
+    assert_equal 1, @lam1_call_count
+    assert_equal 1, @lam2_call_count
+  end
 end
