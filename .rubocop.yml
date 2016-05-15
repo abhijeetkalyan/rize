@@ -1,7 +1,7 @@
 AllCops:
   TargetRubyVersion: 2.2
   Exclude:
-    - 'lib/version.rb'
+    - 'lib/rize/version.rb'
 
 Style/SpaceInsideHashLiteralBraces:
   Enabled: false
@@ -46,4 +46,7 @@ Style/SymbolProc:
   Enabled: false
 
 Metrics/ClassLength:
+  Enabled: false
+
+Style/GuardClause:
   Enabled: false
