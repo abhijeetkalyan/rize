@@ -1,6 +1,6 @@
-# Rize
+[![Build Status](https://travis-ci.org/abhijeetkalyan/rize.svg?branch=master)](https://travis-ci.org/abhijeetkalyan/rize)
 
-![Build Status]](https://travis-ci.org/abhijeetkalyan/rize.svg?branch=master)
+# Rize
 
 ### A functional toolkit for Ruby.
 
