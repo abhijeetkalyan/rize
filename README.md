@@ -37,7 +37,7 @@ Or install it yourself as:
 
 ## Usage
 
-*The full documentation is available [here](http://www.rubydoc.info/gems/rize/1.0.3/Rize)*
+*The full documentation is available [here](http://www.rubydoc.info/gems/rize/1.0.3/Rize).*
 
 Rize has two primary uses: working with [functions](https://github.com/abhijeetkalyan/rize/blob/master/lib/rize/functional.rb) and working with [iterables](https://github.com/abhijeetkalyan/rize/blob/master/lib/rize/iteration.rb). More on each follows:
 
