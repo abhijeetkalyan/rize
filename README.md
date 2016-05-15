@@ -13,6 +13,8 @@ Rize is a collection of useful methods that can make it easier to work with func
 - Map or iterate over multiple arrays at once
 - Elegantly map over just the keys, or just the values of a hash.
 
+Nothing is monkeypatched, so you don't have to worry about the core classes behaving differently than you expect.
+
 See the [Usage](https://github.com/abhijeetkalyan/rize#usage) section for more on what rize can do.
 
 ## Installation
