@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["abhijeetkalyan"]
   spec.email         = ["abhijeetkalyan@gmail.com"]
 
-  spec.summary       = %q{Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{Write a longer description or delete this line.}
+  spec.summary       = %q{A functional toolkit for Ruby.}
+  spec.description   = %q{A collection of useful utilities for manipulating functions, arrays and hashes.}
   spec.homepage      = "https://github.com/abhijeetkalyan/rize"
   spec.license       = "MIT"
   spec.required_ruby_version = '>= 2.0.0'
