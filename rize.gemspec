@@ -11,13 +11,9 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{A functional toolkit for Ruby.}
   spec.description   = <<-EOF
-Rize is a collection of useful methods that can make it easier to work with functions, arrays and hashes in Ruby. Some of the interesting things you can do include:
-
-- Compose, memoize and partially supply arguments to your functions
-- Control the behaviour of your functions based on how many times they're called - for example, you could create a function that stops executing on the third try.
-- Map or iterate over multiple arrays at once
-- Elegantly map over just the keys, or just the values of a hash.
-
+Rize is a collection of useful methods that can make it easier to work with functions, arrays and hashes in Ruby. 
+It allows you to compose and memoize functions, elegantly iterate over multiple arrays at once, easily map over hash keys and values,
+and much more.
 Nothing is monkeypatched, so you don't have to worry about the core classes behaving differently than you expect.
   EOF
   spec.homepage      = "https://github.com/abhijeetkalyan/rize"

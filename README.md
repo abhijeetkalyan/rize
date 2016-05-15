@@ -2,7 +2,7 @@
 
 # Rize
 
-### A functional toolkit for Ruby.
+### A functional toolkit for Ruby
 
 (Inspired by Javascript's [Underscore](http://underscorejs.org/), Python's [toolz](https://github.com/pytoolz/toolz) and Ocaml's [List module](http://caml.inria.fr/pub/docs/manual-ocaml/libref/List.html)).
 
@@ -16,6 +16,8 @@ Rize is a collection of useful methods that can make it easier to work with func
 Nothing is monkeypatched, so you don't have to worry about the core classes behaving differently than you expect.
 
 See the [Usage](https://github.com/abhijeetkalyan/rize#usage) section for more on what rize can do.
+
+For the full API, check out the [docs](http://www.rubydoc.info/gems/rize/1.0.3/Rize).
 
 ## Installation
 
@@ -34,6 +36,8 @@ Or install it yourself as:
     $ gem install rize
 
 ## Usage
+
+*The full documentation is available [here](http://www.rubydoc.info/gems/rize/1.0.3/Rize)*
 
 Rize has two primary uses: working with [functions](https://github.com/abhijeetkalyan/rize/blob/master/lib/rize/functional.rb) and working with [iterables](https://github.com/abhijeetkalyan/rize/blob/master/lib/rize/iteration.rb). More on each follows:
 
