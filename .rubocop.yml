@@ -39,5 +39,8 @@ Metrics/MethodLength:
 Style/Lambda:
   Enabled: false
 
+Style/WordArray:
+  Enabled: false
+
 Style/SymbolProc:
   Enabled: false
