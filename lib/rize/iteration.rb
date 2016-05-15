@@ -196,4 +196,23 @@ module Rize
   def lazy_repeat
     (1..Float::INFINITY).lazy.map { yield }
   end
+
+  # Variation on Enumerable#flat_map that flattens the array before running the block.
+  # Useful when dealing with an array of arrays, where we really want to operate on the underlying elements.
+  #
+  # @param arr [Array] The array to be operated on.
+  #
+  # @yield [elem] The block to be called.
+  #
+  # @return [Array] The result of calling flat_map on the flattened array.
+  #
+  # @example Capitalize each letter in an array of arrays.
+  #   Rize.flatter_map([["a", "b"], [["c"], ["d"]]], &:capitalize)
+  #   ["A", "B", "C", "D"]
+  # @example Capitalize each letter in an array of arrays, and also return the non-capitalized version.
+  #   Rize.flatter_map([["a", "b"], [["c"], ["d"]]]) { |el| [el, el.capitalize]  }
+  #   ["a", "A", "b", "B", "c", "C", "d", "D"]
+  def flatter_map(arr, &block)
+    arr.flatten.flat_map(&block)
+  end
 end

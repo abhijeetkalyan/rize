@@ -96,4 +96,11 @@ class RizeIterationTest < Minitest::Test
     assert((d != e) && (e != f) && (d != f))
     [d, e, f].each { |var| assert((0..502).cover?(var)) }
   end
+
+  def test_flatter_map
+    expected_result = RZ.flatter_map([["a", "b"], [["c"], ["d"]]]) { |el| el.capitalize }
+    assert_equal ["A", "B", "C", "D"], expected_result
+    expected_result = Rize.flatter_map([["a", "b"], [["c"], ["d"]]]) { |el| [el, el.capitalize] }
+    assert_equal ["a", "A", "b", "B", "c", "C", "d", "D"], expected_result
+  end
 end
